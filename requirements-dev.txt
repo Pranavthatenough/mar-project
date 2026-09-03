@@ -1,0 +1,4 @@
+# Extra/alternate dependencies for CI and headless test environments.
+# Install *instead of* the opencv-python line in requirements.txt when
+# there is no display/X server available (e.g. GitHub Actions runners).
+opencv-python-headless>=4.8

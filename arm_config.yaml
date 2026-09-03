@@ -1,0 +1,62 @@
+# arm_config.yaml
+# ----------------
+# Edit these values to match YOUR physical arm.
+# All lengths in cm, angles in degrees.
+
+arm:
+  name: "6DOF Desktop Arm"
+  # DH parameters — measure from your actual arm
+  dh_params:
+    - { joint: 1, d: 15.0, a:  0.0, alpha_deg:  90.0, description: "Base rotation" }
+    - { joint: 2, d:  0.0, a: 14.0, alpha_deg:   0.0, description: "Shoulder pitch" }
+    - { joint: 3, d:  0.0, a: 14.0, alpha_deg:   0.0, description: "Elbow" }
+    - { joint: 4, d:  0.0, a:  0.0, alpha_deg:  90.0, description: "Wrist roll" }
+    - { joint: 5, d: 12.0, a:  0.0, alpha_deg: -90.0, description: "Wrist pitch" }
+    - { joint: 6, d:  6.0, a:  0.0, alpha_deg:   0.0, description: "End-effector" }
+
+  # Joint limits [min_deg, max_deg]
+  joint_limits:
+    - [-180,  180]   # J1
+    - [ -90,  120]   # J2
+    - [-135,  135]   # J3
+    - [-180,  180]   # J4
+    - [ -90,   90]   # J5
+    - [-180,  180]   # J6
+
+  # Serial port settings (used when backend=serial)
+  serial:
+    port: "/dev/ttyUSB0"
+    baud: 115200
+    protocol: "J{n}:{angle_deg}\n"   # message format
+
+  # Home position (degrees)
+  home: [0, 0, 0, 0, 0, 0]
+
+camera:
+  # Camera extrinsic: position relative to arm base origin (cm)
+  # Adjust after physically mounting your camera
+  position_xyz_cm: [0, 0, 30]      # 30cm directly above base
+  rotation_rpy_deg: [0, -90, 0]   # pointing downward
+
+  # Intrinsic calibration
+  # Run: python -c "import cv2; ..." or use calibrate.py
+  focal_length_px: 600             # tune with calibration target
+  frame_width:  640
+  frame_height: 480
+  horizontal_fov_deg: 60
+
+ball:
+  real_diameter_cm: 6.5            # tennis ball; change for your ball
+  min_radius_px: 15
+  max_radius_px: 250
+
+detection:
+  # HSV ranges — tune with --calibrate flag
+  red:
+    range1: { h_lo:   0, h_hi:  10, s_lo: 120, s_hi: 255, v_lo: 70, v_hi: 255 }
+    range2: { h_lo: 170, h_hi: 180, s_lo: 120, s_hi: 255, v_lo: 70, v_hi: 255 }
+  green:
+    range1: { h_lo:  40, h_hi:  85, s_lo:  70, s_hi: 255, v_lo: 70, v_hi: 255 }
+
+  min_confidence: 0.40
+  min_circularity: 0.10

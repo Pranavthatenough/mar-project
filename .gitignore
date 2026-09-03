@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# ROS2 / colcon
+build/
+install/
+log/
+
+# Project artifacts
+/tmp/
+*.log
+/output/
+calibration_*.png
+
+# Media captures (recordings made while testing)
+*.mp4
+*.avi

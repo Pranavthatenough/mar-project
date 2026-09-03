@@ -1,0 +1,43 @@
+# config/arm_controllers.yaml
+# ----------------------------
+# ros2_control controller manager configuration for arm_6dof.urdf.
+#
+# - joint_state_broadcaster : publishes /joint_states from the simulated arm
+# - arm_controller          : a ForwardCommandController that accepts a
+#                             std_msgs/Float64MultiArray of 6 joint angles
+#                             (radians) on /arm_controller/commands — this is
+#                             exactly what arm_controller.py publishes when
+#                             ArmBackend.ROS is selected.
+#
+# Spawned by launch_sim.py via `ros2 run controller_manager spawner ...`.
+
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+    arm_controller:
+      type: forward_command_controller/ForwardCommandController
+
+joint_state_broadcaster:
+  ros__parameters:
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - joint5
+      - joint6
+
+arm_controller:
+  ros__parameters:
+    joints:
+      - joint1
+      - joint2
+      - joint3
+      - joint4
+      - joint5
+      - joint6
+    interface_name: position
